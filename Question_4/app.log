@@ -1,0 +1,3 @@
+INFO: Server started smoothly.
+ERROR: Database connection timed out.
+INFO: Retrying connection...

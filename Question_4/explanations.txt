@@ -1,0 +1,5 @@
+Command Pipeline and Justifications:
+
+1. Real-Time Tracking with tail: The `tail -f` command is utilized to keep an active, open link to the target system log block. I observed that it instantly captures and processes any newly appended text streams without terminating.
+2. Target Content Extraction with grep: The `grep "ERROR"` filter is piped directly after the stream reader. I observed that it effectively suppresses all unnecessary log output lines (such as informational or debugging notices) while isolating only critical event items.
+3. Split Routing with tee: The `tee -a` command intercepts the filtered runtime stream and routes it simultaneously along two paths. I observed that it displays the matches live on the stdout terminal screen while cleanly appending the entries into a separate, permanent report file (`error_report.txt`).
