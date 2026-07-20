@@ -1,5 +1,0 @@
-Command Execution & Observations:
-
-1. Staging Files: I used 'mkdir' and 'echo' to prepare the workspace and dummy data. I observed that files with identical contents were successfully staged to test the script's duplicate detection capabilities.
-2. Script Execution: I executed './process_submissions.sh' after managing permissions with 'chmod'. I observed that the script correctly calculated MD5 content hashes on macOS, successfully completing without errors.
-3. Output Verification: I ran 'cat system_report.txt' and 'ls backup' to verify the script's calculations. I observed that the duplicate file was entirely ignored, while the unique files were securely routed to the backup folder.
