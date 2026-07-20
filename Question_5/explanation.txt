@@ -1,0 +1,12 @@
+Evaluation of vi Recovery Mechanisms:
+
+1. Swap Files (.swp): When editing begins, vi automatically writes unsaved modifications in real time to a hidden swap file block. In a sudden system crash, this file persists independently on the disk storage track.
+2. Undo History & Registers: These internal features track operational history stacks and cut/copied text fragments. Because they reside purely inside temporary volatile RAM memory structures, they are wiped instantly during a crash and offer zero system recovery value.
+3. Backup Files: While highly reliable, backup files are only written or updated at the exact moment a successful write/save command (:w) executes. Since the system crashed before the file could be saved, no updated backup file exists for the unsaved work.
+4. Auto-Recovery: This represents the automated utility implementation that parses the hidden swap data structure to reconstruct the original document's unsaved states.
+
+Proposed Strategy and Justification:
+The most reliable recovery strategy is leveraging the hidden Swap File via the Auto-Recovery flag command line option ('vi -r config.txt'). 
+
+Justification: 
+Because a system crash completely erases volatile memory contents (destroying standard registers and undo records) and avoids hitting a checkpoint window (leaving backup files outdated), the hidden swap file stands out as the only non-volatile, persistently updated copy tracking unsaved text blocks on the disk platter. Utilizing 'vi -r' effectively reconstructs the exact pre-crash state securely and cleanly.
