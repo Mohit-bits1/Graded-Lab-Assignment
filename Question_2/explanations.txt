@@ -1,0 +1,5 @@
+Conceptual Integration and Justifications:
+
+1. Process Creation and Monitoring: The master server executes `fork()` to safely isolate request processing into a separate workspace, tracking the generated child PID. I observed that the parent process can continuously run or sleep to monitor timeouts while the child worker handles execution.
+2. Zombie Prevention via Signal Handling: By mapping a custom action to `SIGCHLD` using `sigaction`, the parent intercepts the system notification sent when a child dies. The embedded asynchronous `waitpid(-1, NULL, WNOHANG)` loop frees up the child's entry in the system process table instantly, eliminating zombie creation entirely.
+3. Forceful Process Termination: When the monitor detects an unresponsive execution window, it utilizes the `kill()` utility to issue a standard hardware `SIGKILL` message. I observed that this forces an immediate kernel-level termination of the hung child, releasing system overhead before the server locks up.
