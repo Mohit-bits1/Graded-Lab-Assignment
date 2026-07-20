@@ -1,0 +1,7 @@
+=========================================
+       SUBMISSION PROCESSING REPORT      
+=========================================
+Total files processed : 3
+Duplicate files found : 1
+Unique files backed up: 2
+=========================================
