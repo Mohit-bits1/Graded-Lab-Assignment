@@ -1,0 +1,5 @@
+System Call Contributions and Justifications:
+
+1. open() & close(): The `open()` call initializes a low-level path stream directly inside the kernel with strict bitwise access flags (like O_RDWR and 0644 permission masks) for structural isolation. I observed that `close()` terminates this registration smoothly, reclaiming the file descriptor tracking variable to prevent resource leaks.
+2. write() & read(): Instead of buffered standard utility macros, `write()` and `read()` handle zero-buffer memory blocks, pushing raw structure byte sizes to and from disk storage tracks. I observed that records populate sequentially unless altered by an implicit controller offset shift.
+3. lseek(): Rather than forcing a slow linear text read from scratch, `lseek()` manipulates the open kernel record reference pointer to point at a precise mathematical location (`Index * StructSize`). I observed that this technique enables targeted block overrides and immediate random record lookups with zero total processing impact on the surrounding entries.
